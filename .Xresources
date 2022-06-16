@@ -1,0 +1,266 @@
+
+/*
+ * X resource file for XTerm
+ * vim:ft=xdefaults:
+ *
+ * Maintained by Claud D. Park <posquit0.bj@gmail.com>
+ * http://www.posquit0.com/
+ */
+
+
+!!! General {{{
+/* To report the TERM variable correctly with 256 colors support */
+
+XTerm*termName: xterm-256color
+  /* Lines of history to save */
+  XTerm*saveLines: 4096
+  /* Interpret all incoming data as UTF-8 encoded */
+  XTerm*locale: True
+  XTerm.vt100.locale: false
+  XTerm.vt100.utf8: true
+  Xterm.vt100.colorBDMode: false
+  /* Start as a login shell by prepending a - to argv[0] of the shell */
+  XTerm*loginShell: True
+!!! }}}
+
+!!! URxvt.font: xft:JetBrainsMonoMedium Nerd Font:size=10
+
+!!! Fonts {{{
+  /* Set a font and styles */
+  XTerm*faceName: xft:Liga SFMono Nerd Font:style=Medium:antialias=true:pixelsize=14
+  /* Set a CJK font and styles */
+  XTerm*faceNameDoublesize: xft:MesloLGS NF
+!!! }}}
+XTerm.vt100.renderFont: true
+XTerm*renderFont: true
+Xterm*letterSpace: 0
+Xterm*scaleHeight: 1
+XTerm*allowBoldFonts: false
+Xft.rgba: rgb
+Xft.hintstyle: hintslight
+  
+  
+!!! UXTerm
+UXTerm*faceName: xft:JetBrainsMono Nerd Font:style=Regular:antialias=true:pixelsize=15
+UXTerm*renderFont: true
+UXTerm*letterSpace: -1.0
+UXTerm*scaleHeight: 1.0
+UXTerm.termName: uxterm-256color
+UXTerm*locale: True
+UXTerm.vt100.locale: false
+UXTerm.vt100.utf8: true
+UXterm.vt100.colorBDMode: false
+UXTerm*visualBell:False
+UXTerm*reverseVideo:False
+UXTerm*allowBoldFonts:False
+
+XTerm*gemetry: 80x24
+  /* Reverse between foreground and background colors */
+XTerm*reverseVideo: False
+  /* Use visual bell on receipt of a bell character */
+XTerm*visualBell: False
+
+XTerm.vt100.scaleHeight: 1
+
+  /* Blink a cursor */
+XTerm*cursorBlink: false
+XTerm*cursorColor: #EBCB8B
+
+  /* No scrollbar */
+XTerm*ScrollBar: False
+  /* Set a scrollbar's position to right */
+XTerm*rightScrollBar: True
+  /* Scroll to bottom when tty receives output */
+XTerm*scrollTtyOutput: False
+!!! }}}
+
+XTerm*selectToClipboard: true
+
+XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+!!! XTerm*on3Clicks: regex [[:alpha:]]+://([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+XTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+XTerm*translations: #override Shift <Btn1Up>: exec-formatted("xdg-open '%t'", PRIMARY)  select-start() select-end()
+XTerm*printerCommand: xterm -T History -e sh -c 'less -r <&3' 3<&0
+!!!XTerm*translations: #override Ctrl <Key>slash: print-everything()
+!!!XTerm*translations: #override \n\
+  Ctrl <Key>slash: print-everything() \n\
+  Shift <Btn1Up>: exec-formatted("firefox '%t'", PRIMARY)
+
+
+!!! Key Mappings {{{
+  /* Use `Alt` key for keyboard shortcuts */
+XTerm*metaSendsEscape: True
+!!! }}}
+
+! xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
+! xterm*eightBitInput: false
+/*
+ * Fix ctrl-h. Needed for weird xterm/tmx compatibility with apps.
+ * For my specific case, <C-h> was passed to vim as backspace, thus preventing
+ * the key sequence from being re-bound.
+ * See: http://www.ibb.net/~anne/keyboard.html
+ */
+!*VT100.Translations: #override \
+!        <Key>BackSpace: string(0x7F)\n\
+!        <Key>Delete:    string("\033[3~")\n\
+!        <Key>Home:      string("\033[1~")\n\
+!        <Key>End:       string("\033[4~")
+!*ttyModes: erase ^?
+
+!(change to whatever suits your needs)
+ URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
+ URxvt.url-select.launcher:  chromium
+ URxvt.url-select.underline: true
+ URxvt.keysym.M-u:           perl:url-select:select_next
+ URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+ URxvt.keysym.M-s:           perl:keyboard-select:search
+
+! Base16 Material
+! Scheme: Nate Peterson
+
+#define base00 #1F1F28
+#define base01 #2A2A37
+#define base02 #223249
+#define base03 #727169
+#define base04 #363646
+#define base05 #DCD7BA
+#define base06 #938AA9
+#define base07 #c8c093
+#define base08 #C34043
+#define base09 #FFA066
+#define base0A #DCA561
+#define base0B #98BB6C
+#define base0C #7FB4CA
+#define base0D #575994
+#define base0E #957FB8
+#define base0F #D27E99
+
+*foreground:   base05
+#ifdef background_opacity
+*background:   [background_opacity]base00
+#else
+*background:   base00
+#endif
+*cursorColor:  base05
+
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+
+*color8:       base03
+*color9:       base08
+*color10:      base0B
+*color11:      base0A
+*color12:      base0D
+*color13:      base0E
+*color14:      base0C
+*color15:      base07
+
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+*color16:      base09
+*color17:      base0F
+*color18:      base01
+*color19:      base02
+*color20:      base04
+*color21:      base06
+
+
+
+! Urxvt colors
+
+! special
+URxvt.foreground: base05
+URxvt.background: base00
+URxvt.cursorColor:base0E
+
+! black
+URxvt.color0: base00
+URxvt.color8: base03
+
+! red
+URxvt.color1: base08
+URxvt.color9: base08
+
+! green
+URxvt.color2: base0B
+URxvt.color10:base0B
+
+! yellow
+URxvt.color3: base0A
+URxvt.color11:base0A
+
+! blue
+URxvt.color4: base0D
+URxvt.color12:base0D
+
+! magenta
+URxvt.color5: base0E
+URxvt.color13:base0E
+! cyan
+URxvt.color6: base0C
+URxvt.color14:base0C
+
+! white
+URxvt.color7: base05
+URxvt.color15:base07
+
+
+
+
+URxvt*scrollBar:         false
+URxvt*scrollBar_right:   false
+URxvt*transparent:       false
+
+
+!Urxvt.font: -misc-spleen-medium-r-normal--32-320-72-72-c-160-iso10646-1
+URxvt.font:xft:Input Nerd Font Mono:Regular:pixelsize=15:antialias=true
+URxvt.letterSpace: -1
+URxvt.boldFont: xft:Input Nerd Font Mono:Regular:pixelsize=15:antialias=true
+
+!Urxvt*antialias: false
+*antialias:  true
+*autohint:   true
+
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: firefox
+
+URxvt.matcher.button: 1
+
+URxvt.perl-ext-common: ...,tabbed,...
+URxvt.tabbed.tabbar-fg: #color1
+URxvt.tabbed.tabbar-bg: #color1
+URxvt.tabbed.tab-fg: #color1
+URxvt.tabbed.tab-bg: #color1
+
+
+URxvt.internalBorder: 8
+URxvt.externalBorder: 0
+URxvt.linespace: 1
+URxvt.cursorUnderline: true
+URxvt.depth: 24
+URxvt.cursorColor: color9
+URxvt.tabbed.autohide: true
+
+
+!! 2bwm
+
+twobwm.outer_border: 5
+twobwm.border_width: 8
+twobwm.focus_color:  base0E
+twobwm.unfocus_color: #75b6aa
+twobwm.outer_border_color: #2a2a37
+twobwm.fixed_color: base0A
+twobwm.unkill_color: base0B
+twobwm.fixed_unkill_color: base0E
+twobwm.inverted_colors: true|false
+twobwm.enable_compton: true
+
+
+
